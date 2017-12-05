@@ -1,35 +1,17 @@
 <template>
     <div :class="wrapClasses" :style="styles">
-        <div :class="classes">  
-            <div :class="[prefixCls + '-title']" v-if="showSlotHeader" ref="title">
-                <slot name="header"></slot>
-            </div>
+        <div :class="classes">
             <div :class="[prefixCls + '-header']" v-if="showHeader" ref="header" @mousewheel="handleMouseWheel">
-                <table-head
+                <data-grid-head
                     :prefix-cls="prefixCls"
-                    :styleObject="tableStyle"
-                    :columns="cloneColumns"
-                    :obj-data="objData"
-                    :columns-width="columnsWidth"
-                    :data="rebuildData"></table-head>
-            </div>
-            <div :class="[prefixCls + '-body']" :style="bodyStyle" ref="body" @scroll="handleBodyScroll"
-                v-show="!((!!localeNoDataText && (!data || data.length === 0)) || (!!localeNoFilteredDataText && (!rebuildData || rebuildData.length === 0)))">
-                <!-- <table-body
-                    ref="tbody"
-                    :prefix-cls="prefixCls"
-                    :styleObject="tableStyle"
-                    :columns="cloneColumns"
-                    :data="rebuildData"
-                    :columns-width="columnsWidth"
-                    :obj-data="objData"></table-body> -->
+                    :columns="cloneColumns"></data-grid-head>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import tableHead from './data-grid-head.vue';
-    import tableBody from './data-grid-body.vue';
+    import dataGridHead from './data-grid-head.vue';
+    import dataGridBody from './data-grid-body.vue';
 
     import { oneOf, getStyle, deepCopy, getScrollBarSize } from '../../utils/assist';
     import { on, off } from '../../utils/dom';
@@ -42,7 +24,7 @@
     export default {
         name: 'DataGrid',
         mixins: [ Locale ],
-        components: { tableHead, tableBody },
+        components: { dataGridHead, dataGridBody },
         props: {
             columns:{
                 type: Array,
